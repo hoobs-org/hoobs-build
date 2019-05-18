@@ -1,0 +1,15 @@
+version: '2'
+services:
+  homebridge:
+    image: oznu/homebridge:debian-raspberry-pi
+    network_mode: host
+    restart: always
+    environment:
+      - TZ=${TZ}
+      - PGID=1000
+      - PUID=1000
+      - HOMEBRIDGE_CONFIG_UI=1
+      - HOMEBRIDGE_CONFIG_UI_PORT=80
+      - HOOBS=1
+    volumes:
+      - /var/lib/homebridge:/homebridge

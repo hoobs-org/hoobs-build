@@ -1,0 +1,10 @@
+[Unit]
+Description=WiFi Captive Portal
+Before=network.target docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/wifi-connect-startup
+
+[Install]
+WantedBy=multi-user.target

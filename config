@@ -1,0 +1,6 @@
+IMG_DATE="Raspbian"
+IMG_NAME="HOOBS"
+FIRST_USER_NAME=hoobs
+FIRST_USER_PASS=hoobsadmin
+ENABLE_SSH=1
+STAGE_LIST="stage0 stage1 stage2 stage3_custom"

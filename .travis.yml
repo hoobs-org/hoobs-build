@@ -1,0 +1,26 @@
+dist: xenial
+
+language: bash
+
+services:
+  - docker
+
+before_install:
+  - sudo apt-get install -y coreutils quilt parted qemu-user-static debootstrap zerofree zip dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl
+
+script:
+  - if [[ -f work/.cache/cache.tar ]]; then sudo tar -xf work/.cache/cache.tar ; fi
+  - if [[ -d work/Raspbian-Homebridge/stage0/rootfs ]]; then touch stage0/SKIP ; fi
+  - if [[ -d work/Raspbian-Homebridge/stage1/rootfs ]]; then touch stage1/SKIP ; fi
+  - if [[ -d work/Raspbian-Homebridge/stage2/rootfs ]]; then touch stage2/SKIP ; fi
+  - sudo CLEAN=1 ./build.sh -c config
+  - rm -rf stage0/SKIP stage1/SKIP stage2/SKIP
+  - sudo tar -cf work/.cache/cache.tar work/Raspbian-Homebridge/stage0 work/Raspbian-Homebridge/stage1 work/Raspbian-Homebridge/stage2
+
+cache:
+  timeout: 1000
+  directories:
+    - $TRAVIS_BUILD_DIR/work/.cache
+  before_cache:
+    - ls -la $TRAVIS_BUILD_DIR/work/.cache
+    - sudo chown -R $USER:$USER $TRAVIS_BUILD_DIR/work/.cache

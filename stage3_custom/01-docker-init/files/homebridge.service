@@ -1,0 +1,21 @@
+[Unit]
+Description=Homebridge Docker Container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+User=root
+StandardError=null
+StandardOutput=null
+WorkingDirectory=/home/hoobs
+
+# Compose up
+ExecStart=/home/hoobs/start.sh
+
+# Compose Stop
+ExecStop=/usr/local/bin/docker-compose -f /home/hoobs/docker-compose.yml stop
+
+[Install]
+WantedBy=multi-user.target
