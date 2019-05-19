@@ -8,8 +8,9 @@ services:
       - TZ=${TZ}
       - PGID=1000
       - PUID=1000
+      - HOMEBRIDGE_INSECURE=1
       - HOMEBRIDGE_CONFIG_UI=1
       - HOMEBRIDGE_CONFIG_UI_PORT=80
-      - HOOBS=1
+      - CONFIG_UI_BRANDING=hoobs
     volumes:
       - /var/lib/homebridge:/homebridge

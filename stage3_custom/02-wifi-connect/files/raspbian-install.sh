@@ -14,8 +14,11 @@ NAME='WiFi Connect Raspbian Installer'
 INSTALL_BIN_DIR="$WFC_INSTALL_ROOT/sbin"
 INSTALL_UI_DIR="$WFC_INSTALL_ROOT/share/wifi-connect/ui"
 
-WFC_VERSION="v4.2.5"
-RELEASE_URL="https://github.com/balena-io/wifi-connect/releases/download/$WFC_VERSION/wifi-connect-$WFC_VERSION-linux-rpi.tar.gz"
+WFC_VERSION="4.2.5"
+RELEASE_URL="https://github.com/balena-io/wifi-connect/releases/download/v$WFC_VERSION/wifi-connect-v$WFC_VERSION-linux-rpi.tar.gz"
+
+CUI_VERSION="4.2.5-hoobs"
+CUI_RELEASE_URL="https://github.com/hoobs-org/wifi-connect/archive/v$CUI_VERSION.tar.gz"
 
 CONFIRMATION=true
 
@@ -57,6 +60,7 @@ main() {
     check_os_version
 
     install_wfc
+    install_custom_ui
 
     say "Run 'wifi-connect --help' for available options"
 }
@@ -120,6 +124,25 @@ install_wfc() {
     _wfc_version=$(ensure wifi-connect --version)
 
     say "Successfully installed $_wfc_version"
+}
+
+install_custom_ui() {
+    local _download_dir
+    _download_dir=$(ensure mktemp -d)
+
+    say "Retrieving latest custom ui release from $CUI_RELEASE_URL..."
+
+    ensure curl -Ls "$CUI_RELEASE_URL" | tar -xz -C "$_download_dir"
+
+    ensure sudo mkdir -p $INSTALL_UI_DIR
+
+    ensure sudo rm -rdf $INSTALL_UI_DIR
+
+    ensure sudo mv "$_download_dir/wifi-connect-$CUI_VERSION/ui" $INSTALL_UI_DIR
+
+    ensure rm -rdf "$_download_dir"
+
+    say "Successfully installed custom ui $CUI_VERSION"
 }
 
 say() {

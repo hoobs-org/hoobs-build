@@ -22,3 +22,4 @@ systemctl enable wifi-connect
 systemctl enable NetworkManager
 systemctl disable dhcpcd
 EOF
+
