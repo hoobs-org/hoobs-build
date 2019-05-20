@@ -1,6 +1,7 @@
 [Unit]
 Description=WiFi Captive Portal
-Before=network.target docker.service
+After=NetworkManager.service
+Before=nginx.service docker.service
 
 [Service]
 Type=oneshot
