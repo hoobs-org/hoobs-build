@@ -7,7 +7,7 @@ if [ "$(id -u)" = "0" ]; then
     echo "Updating system timezone..."
     /usr/local/bin/tzupdate
     export TZ=$(cat /etc/timezone)
-    echo "TZ=\"$TZ\"" > /home/hoobs/.env
+    echo "TZ=$TZ" > /home/hoobs/.env
 fi
 
 # make a symlink to the main config directory

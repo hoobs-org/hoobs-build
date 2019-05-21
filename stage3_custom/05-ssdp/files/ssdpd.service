@@ -1,0 +1,13 @@
+[Unit]
+Description=SSDP Discovery Broadcast Service
+After=nginx.service docker.service
+
+[Service]
+Type=simple
+Restart=on-failure
+RestartSec=3
+KillMode=process
+ExecStart=/usr/local/sbin/ssdpd
+
+[Install]
+WantedBy=multi-user.target

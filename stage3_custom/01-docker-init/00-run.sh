@@ -17,9 +17,11 @@ cp -R /var/lib/docker/overlay2 "${ROOTFS_DIR}/var/lib/docker"
 install -m 644 files/homebridge.service "${ROOTFS_DIR}/etc/systemd/system/"
 install -m 644 files/start.sh "${ROOTFS_DIR}/home/hoobs/"
 install -m 644 files/docker-compose.yml "${ROOTFS_DIR}/home/hoobs/"
+install -m 644 files/update "${ROOTFS_DIR}/etc/cron.daily/homebridge"
 
 on_chroot << EOF
 chmod +x /home/hoobs/start.sh
+chmod +x /etc/cron.daily/homebridge
 chown -R hoobs:hoobs /home/hoobs
 
 systemctl daemon-reload

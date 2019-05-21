@@ -2,8 +2,11 @@ version: '2'
 services:
   homebridge:
     image: oznu/homebridge:debian-raspberry-pi
+    container_name: homebridge
     network_mode: host
     restart: always
+    logging:
+      driver: journald
     environment:
       - TZ=${TZ}
       - PGID=1000
