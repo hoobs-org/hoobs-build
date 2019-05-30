@@ -4,6 +4,7 @@
 # Install balena-io/wifi-connect
 #
 
+install -m 644 files/issue "${ROOTFS_DIR}/etc/issue"
 install -m 644 files/wifi-connect.service "${ROOTFS_DIR}/etc/systemd/system/"
 install -m 644 files/wifi-connect-startup "${ROOTFS_DIR}/usr/local/sbin/"
 install -m 644 files/raspbian-install.sh "${ROOTFS_DIR}/"
