@@ -1,0 +1,23 @@
+#!/bin/bash
+
+IP=$(hostname -I)
+
+printf "\n*** HOOBS - Homebridge Out Of The Box System ***\n\n"
+
+printf "To configure Homebridge browse to the one of the following addresses from another device on your network:" | fold -s
+printf "\n\n"
+printf "* http://$(hostname).local\n"
+
+for ip in $IP; do
+  if [[ $ip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+    printf "* http://$ip\n"
+  else
+    printf "* http://[$ip]\n"
+  fi
+done
+
+printf "\nAll Homebridge configuration can be completed via the Homebridge Web UI.\n\n" | fold -s
+
+printf "homebridge was created by nfarina and licensed under the Apache License 2.0.\n" | fold -s
+printf "homebridge-config-ui-x was created by oznu and licensed under the MIT License.\n" | fold -s
+
