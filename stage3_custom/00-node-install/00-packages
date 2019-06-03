@@ -4,4 +4,8 @@ curl
 gnupg-agent
 software-properties-common
 python-setuptools
+gcc
+g++
+make
 ntpdate
+jq

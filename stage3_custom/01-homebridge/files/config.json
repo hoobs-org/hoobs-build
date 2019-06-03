@@ -13,6 +13,13 @@
             "port": 8080,
             "auth": "form",
             "theme": "amber",
+	    "sudo": true,
+	    "standalone": true,
+	    "restart": "sudo -n systemctl restart homebridge homebridge-config-ui-x",
+	    "log": {
+                "method": "custom",
+		"command": "sudo -n journalctl -o cat -n 500 -f -u homebridge -u homebridge-config-ui-x"
+            },
             "platform": "config"
         }
     ]

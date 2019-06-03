@@ -1,8 +1,11 @@
 #!/bin/bash
 
+MODEL=$(tr -d '\0' </proc/device-tree/model)
+printf "$MODEL\n"
+
 IP=$(hostname -I)
 
-printf "\n*** HOOBS - Homebridge Out Of The Box System ***\n\n"
+printf "\n\n*** HOOBS - Homebridge Out Of The Box System ***\n\n"
 
 printf "To configure Homebridge browse to the one of the following addresses from another device on your network:" | fold -s
 printf "\n\n"

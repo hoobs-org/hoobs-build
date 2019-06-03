@@ -6,7 +6,7 @@
 
 install -m 644 files/ssdpd.service "${ROOTFS_DIR}/etc/systemd/system/"
 
-export SSDP_VERSION=v1.6.0
+export SSDP_VERSION=v1.6.1
 export SSDP_RELEASE_URL=https://github.com/hoobs-org/ssdp-responder/releases/download/$SSDP_VERSION/ssdp-responder-$SSDP_VERSION-linux-arm.tar.gz
 
 on_chroot << EOF
