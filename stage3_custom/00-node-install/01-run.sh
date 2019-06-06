@@ -2,7 +2,8 @@
 
 
 #
-# Install Docker and Docker Compose
+# Install Node.js
+# Installing the arm32v6 version of Node to ensure compilability with RaspberryPi 1 / Zero
 #
 
 export LTS="$(curl -s https://nodejs.org/dist/index.json | jq -r 'map(select(.lts))[0].version')"

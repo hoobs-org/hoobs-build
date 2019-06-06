@@ -16,6 +16,7 @@
 	    "sudo": true,
 	    "standalone": true,
 	    "restart": "sudo -n systemctl restart homebridge homebridge-config-ui-x",
+	    "temp": "/sys/class/thermal/thermal_zone0/temp",
 	    "log": {
                 "method": "custom",
 		"command": "sudo -n journalctl -o cat -n 500 -f -u homebridge -u homebridge-config-ui-x"
