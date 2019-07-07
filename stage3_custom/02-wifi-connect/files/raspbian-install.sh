@@ -72,9 +72,9 @@ check_os_version() {
         _version=$(grep -oP 'VERSION="\K[^"]+' /etc/os-release)
     fi
 
-    if [ "$_version" != "9 (stretch)" ]; then
-        err "Distribution not based on Debian 9 (stretch)"
-    fi
+    # if [ "$_version" != "9 (stretch)" ]; then
+    #     err "Distribution not based on Debian 9 (stretch)"
+    # fi
 }
 
 service_load_state() {

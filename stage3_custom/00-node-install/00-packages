@@ -4,6 +4,7 @@ curl
 gnupg-agent
 software-properties-common
 python-setuptools
+python-pip
 gcc
 g++
 make

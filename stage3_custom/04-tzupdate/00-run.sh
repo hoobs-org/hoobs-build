@@ -7,7 +7,6 @@
 install -m 644 files/tzupdate.service "${ROOTFS_DIR}/etc/systemd/system/"
 
 on_chroot << EOF
-sudo easy_install pip
 sudo pip install tzupdate
 
 systemctl daemon-reload
