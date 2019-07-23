@@ -6,14 +6,17 @@ services:
   - docker
 
 before_install:
-  - sudo apt-get install -y coreutils quilt parted qemu-user-static debootstrap zerofree zip dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl jq
+  - sudo apt-get install -y coreutils quilt parted debootstrap zerofree zip dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl jq
+  - sudo dpkg --add-architecture i386
+  - sudo apt update
+  - sudo apt-get install qemu-user-static:i386
 
 script:
   - if [[ -f work/.cache/cache.tar ]]; then sudo tar -xf work/.cache/cache.tar ; fi
   - if [[ -d work/Raspbian-HOOBS/stage0/rootfs ]]; then touch stage0/SKIP ; fi
   - if [[ -d work/Raspbian-HOOBS/stage1/rootfs ]]; then touch stage1/SKIP ; fi
   - if [[ -d work/Raspbian-HOOBS/stage2/rootfs ]]; then touch stage2/SKIP ; fi
-  - sudo CLEAN=1 ./build.sh -c config
+  - travis_wait 30 sudo CLEAN=1 ./build.sh -c config
   - sudo chown -R $USER:$USER deploy
   - sudo mv deploy/image_Raspbian-HOOBS.zip deploy/Raspbian-HOOBS.zip
   - rm -rf stage0/SKIP stage1/SKIP stage2/SKIP
