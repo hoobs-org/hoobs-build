@@ -1,6 +1,6 @@
 [Unit]
 Description=SSDP Discovery Broadcast Service
-After=nginx.service homebridge.service homebridge-config-ui-x.service
+After=nginx.service hoobs.service
 
 [Service]
 Type=simple
