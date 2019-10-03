@@ -11,3 +11,4 @@ Index: jessie-stage2/rootfs/etc/dphys-swapfile
  
  # set size to computed value, this times RAM size, dynamically adapts,
  #   guarantees that there is enough swap without wasting disk space on excess
+ 

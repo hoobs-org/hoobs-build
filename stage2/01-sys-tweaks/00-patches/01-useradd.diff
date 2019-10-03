@@ -20,3 +20,4 @@ Index: jessie-stage2/rootfs/etc/default/useradd
  #
  # Defines whether the mail spool should be created while
  # creating the account
+ 
