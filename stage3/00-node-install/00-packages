@@ -9,3 +9,5 @@ gcc
 g++
 make
 ntpdate
+nodejs
+npm
