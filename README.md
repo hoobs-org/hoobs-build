@@ -48,7 +48,7 @@ git pull
 Then run the build.
 
 ```bash
-./build.sh -c config
+sudo ./build.sh -c config
 ```
 
 Once finished the image can be found in the `deploy` folder.
