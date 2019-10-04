@@ -14,12 +14,7 @@ echo "Installing Node.js"
 set -e
 set -x
 
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
-
-source ~/.bashrc
-
-nvm --version
-nvm install --lts
+curl -Lsf "https://nodejs.org/dist/latest-v10.x/node-v10.16.3-linux-armv7l.tar.gz" | tar xzf - -C /usr/local --strip-components=1 --no-same-owner
 
 node -v
 npm -v
