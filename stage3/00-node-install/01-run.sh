@@ -14,9 +14,9 @@ echo "Installing Node.js"
 set -e
 set -x
 
-npm install -g n
-
-n stable
+curl -fLO https://nodejs.org/dist/latest-v10.x/node-v10.16.3-linux-armv7l.tar.gz
+tar -xzf node-v10.16.3-linux-armv7l.tar.gz -C /usr/local --strip-components=1 --no-same-owner
+rm -rf node-v10.16.3-linux-armv7l.tar.gz
 
 node -v
 npm -v
