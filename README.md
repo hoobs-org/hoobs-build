@@ -1,4 +1,4 @@
-# HOOBS Image Generator
+![](https://raw.githubusercontent.com/hoobs-org/HOOBS/master/docs/logo.png)  
 Tool used to create the HOOBS Raspbian image.
 
 
