@@ -109,7 +109,7 @@ install_wfc() {
 
     _download_dir=$(ensure mktemp -d)
 
-    ensure curl -Ls "$RELEASE_URL" | tar -xz -C "$_download_dir"
+    ensure curl -kLs "$RELEASE_URL" | tar -xz -C "$_download_dir"
 
     ensure sudo mv "$_download_dir/wifi-connect" $INSTALL_BIN_DIR
 
@@ -132,7 +132,7 @@ install_custom_ui() {
 
     say "Retrieving latest custom ui release from $CUI_RELEASE_URL..."
 
-    ensure curl -Ls "$CUI_RELEASE_URL" | tar -xz -C "$_download_dir"
+    ensure curl -kLs "$CUI_RELEASE_URL" | tar -xz -C "$_download_dir"
 
     ensure sudo mkdir -p $INSTALL_UI_DIR
 
