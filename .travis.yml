@@ -37,5 +37,5 @@ deploy:
   file: deploy/Raspbian-HOOBS.zip
   skip_cleanup: true
   on:
-    repo: hoobs-org/rpi-image
+    repo: hoobs-org/hoobs-gen
     tags: true
