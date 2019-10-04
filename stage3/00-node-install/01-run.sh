@@ -6,12 +6,10 @@
 # Installing the arm32v6 version of Node to ensure compilability with RaspberryPi 1 / Zero
 #
 
-export LTS="$(curl -s https://nodejs.org/dist/index.json | jq -r 'map(select(.lts))[0].version')"
-
 on_chroot << EOF
 uname -a
 
-echo "Installing Node.js $LTS..."
+echo "Installing Node.js"
 
 set -e
 set -x
