@@ -124,7 +124,7 @@ install_wfc() {
 }
 
 install_custom_ui() {
-    ensure tar -xz -C "/wifi-connect-hoobs.tar.gz"
+    ensure tar -xzf "/wifi-connect-hoobs.tar.gz"
 
     ensure sudo mkdir -p $INSTALL_UI_DIR
 
