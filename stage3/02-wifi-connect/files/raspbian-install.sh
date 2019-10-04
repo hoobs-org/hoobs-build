@@ -18,7 +18,7 @@ WFC_VERSION="4.2.10"
 RELEASE_URL="https://github.com/balena-io/wifi-connect/releases/download/v$WFC_VERSION/wifi-connect-v$WFC_VERSION-linux-rpi.tar.gz"
 
 CUI_VERSION="4.2.10-hoobs"
-CUI_RELEASE_URL="https://github.com/hoobs-org/rpi-image/raw/master/assets/wifi-connect-$CUI_VERSION.tar.gz"
+CUI_RELEASE_URL="https://github.com/hoobs-org/hoobs-gen/raw/master/assets/wifi-connect-$CUI_VERSION.tar.gz"
 
 CONFIRMATION=true
 
