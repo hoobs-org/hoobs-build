@@ -12,7 +12,7 @@ export SSDP_RELEASE_URL=https://github.com/hoobs-org/ssdp-responder/releases/dow
 on_chroot << EOF
 echo $SSDP_RELEASE_URL
 
-curl -fLO $SSDP_RELEASE_URL
+curl -kfLO $SSDP_RELEASE_URL
 tar -xzf ssdp-responder-$SSDP_VERSION-linux-arm.tar.gz -C / --no-same-owner
 rm -rf ssdp-responder-$SSDP_VERSION-linux-arm.tar.gz
 
