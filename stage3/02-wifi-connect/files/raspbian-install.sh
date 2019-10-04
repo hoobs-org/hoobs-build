@@ -17,9 +17,6 @@ INSTALL_UI_DIR="$WFC_INSTALL_ROOT/share/wifi-connect/ui"
 WFC_VERSION="4.2.10"
 RELEASE_URL="https://github.com/balena-io/wifi-connect/releases/download/v$WFC_VERSION/wifi-connect-v$WFC_VERSION-linux-rpi.tar.gz"
 
-CUI_VERSION="4.2.10-hoobs"
-CUI_RELEASE_URL="https://github.com/hoobs-org/hoobs-gen/raw/master/assets/wifi-connect-$CUI_VERSION.tar.gz"
-
 CONFIRMATION=true
 
 usage() {
@@ -127,22 +124,17 @@ install_wfc() {
 }
 
 install_custom_ui() {
-    local _download_dir
-    _download_dir=$(ensure mktemp -d)
-
-    say "Retrieving latest custom ui release from $CUI_RELEASE_URL..."
-
-    ensure curl -kLs "$CUI_RELEASE_URL" | tar -xz -C "$_download_dir"
+    ensure tar -xz -C "/wifi-connect-hoobs.tar.gz"
 
     ensure sudo mkdir -p $INSTALL_UI_DIR
 
     ensure sudo rm -rdf $INSTALL_UI_DIR
 
-    ensure sudo mv "$_download_dir/wifi-connect-$CUI_VERSION/ui" $INSTALL_UI_DIR
+    ensure sudo mv "/wifi-connect-hoobs/ui" $INSTALL_UI_DIR
 
-    ensure rm -rdf "$_download_dir"
+    ensure rm -f "/wifi-connect-hoobs.tar.gz"
 
-    say "Successfully installed custom ui $CUI_VERSION"
+    say "Successfully installed custom ui"
 }
 
 say() {
