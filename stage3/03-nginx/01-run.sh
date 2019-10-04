@@ -4,7 +4,7 @@
 # Setup nginx
 #
 
-mkdir -p /usr/share/hoobs
+mkdir -p "${ROOTFS_DIR}/usr/share/hoobs"
 
 install -m 644 files/nginx.conf "${ROOTFS_DIR}/etc/nginx/"
 install -m 644 files/hoobs.conf "${ROOTFS_DIR}/etc/nginx/conf.d/"
