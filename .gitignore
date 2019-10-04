@@ -1,4 +1,5 @@
 deploy/*
+builds/*
 work/*
 postrun.sh
 .pc
