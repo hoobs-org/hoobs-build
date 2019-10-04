@@ -16,7 +16,8 @@ echo "Installing Node.js $LTS..."
 set -e
 set -x
 
-curl -Lsf "https://nodejs.org/dist/$LTS/node-$LTS-linux-armv6l.tar.gz" | tar xzf - -C /usr/local --strip-components=1 --no-same-owner
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
+nvm install --lts
 
 node -v
 npm -v

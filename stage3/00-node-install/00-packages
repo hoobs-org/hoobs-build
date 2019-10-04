@@ -1,12 +1,3 @@
-apt-transport-https
-ca-certificates
 curl
-gnupg-agent
-software-properties-common
-python-setuptools
-python-pip
-gcc
-g++
-make
-ntpdate
-jq
+build-essential
+libssl-dev
