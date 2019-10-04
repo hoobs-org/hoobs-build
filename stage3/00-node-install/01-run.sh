@@ -15,6 +15,10 @@ set -e
 set -x
 
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
+
+source ~/.bashrc
+
+nvm --version
 nvm install --lts
 
 node -v
