@@ -1,11 +1,5 @@
 #!/bin/bash -e 
 
-
-#
-# Install Node.js
-# Installing the arm32v6 version of Node to ensure compilability with RaspberryPi 1 / Zero
-#
-
 on_chroot << EOF
 uname -a
 
