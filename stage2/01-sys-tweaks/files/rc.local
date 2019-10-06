@@ -13,15 +13,17 @@
 
 # Print the IP address
 _IP=$(hostname -I) || true
+
 if [ "$_IP" ]; then
     printf "My IP address is %s\n" "$_IP"
 fi
 
-if [ -e /etc/init-fs]
-then
-    raspi-config --expand-rootfs
+FILE=/etc/init-fs
+
+if test -f "$FILE"; then
+    /usr/bin/raspi-config --expand-rootfs
     rm -f /etc/init-fs
-    reboot
+    /usr/sbin/reboot
 fi
 
 exit 0
