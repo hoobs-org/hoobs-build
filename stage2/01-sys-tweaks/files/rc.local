@@ -18,12 +18,4 @@ if [ "$_IP" ]; then
     printf "My IP address is %s\n" "$_IP"
 fi
 
-FILE=/etc/init-fs
-
-if test -f "$FILE"; then
-    /usr/bin/raspi-config --expand-rootfs
-    rm -f /etc/init-fs
-    /usr/sbin/reboot
-fi
-
 exit 0
