@@ -18,25 +18,13 @@ HOOBS usess custom build of WiFi Connect. However only the UI changes. Download 
 
 [https://github.com/balena-io/wifi-connect/releases](https://github.com/balena-io/wifi-connect/releases)
 
-Extract and remove the `ui` folder. Then copy the `ui` folder from the HOOBS `wifi-connect` project.
-
-Then rename the folder to this `wifi-connect-4.2.10-hoobs`.
-
-Navigate to the extracted folder and run this.
+Navigate to the hoobs-connect project root folder and run this.
 
 ```bash
-tar -cvzf ui.tar.gz ./ui/*
+./build.sh
 ```
 
-Then back up one filder and run this.
-
-```bash
-tar -cvzf wifi-connect-4.2.10-hoobs.tar.gz ./wifi-connect-4.2.10-hoobs/*
-```
-
-Move `wifi-connect-4.2.10-hoobs.tar.gz` to the `rpi-image/assets` folder.
-
-Adjust the CUI_VERSION and CUI_RELEASE_URL in the `rpi-image/stage3/02-wifi-connect/raspbian-install.sh` file.
+Move `wifi-connect-hoobs.tar.gz` to the `stage3/02-wifi-connect/files` folder.
 
 ## Building
 On the build computer navigate to the `rpi-image` project folder.
