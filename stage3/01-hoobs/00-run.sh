@@ -5,7 +5,6 @@ install -m 644 files/hoobs-core.tgz "${ROOTFS_DIR}/"
 
 on_chroot << EOF
 # install hoobs-core
-npm install -g --unsafe-perm node-gyp
 npm install -g --unsafe-perm /hoobs-core.tgz
 rm -rf /hoobs-core.tgz
 
