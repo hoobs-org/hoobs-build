@@ -8,7 +8,7 @@ echo "Installing Node.js"
 set -e
 set -x
 
-curl -kfLO https://nodejs.org/dist/latest-v10.x/node-v10.16.3-linux-armv7l.tar.gz
+curl -kfLO https://nodejs.org/dist/latest-v10.x/node-v10.17.0-linux-armv7l.tar.gz
 tar -xzf node-v10.16.3-linux-armv7l.tar.gz -C /usr/local --strip-components=1 --no-same-owner
 rm -rf node-v10.16.3-linux-armv7l.tar.gz
 
