@@ -173,7 +173,7 @@ export LOCALE_DEFAULT="${LOCALE_DEFAULT:-en_US.UTF-8}"
 export KEYBOARD_KEYMAP="${KEYBOARD_KEYMAP:-us}"
 export KEYBOARD_LAYOUT="${KEYBOARD_LAYOUT:-English (US)}"
 
-export TIMEZONE_DEFAULT="${TIMEZONE_DEFAULT:-Europe/London}"
+export TIMEZONE_DEFAULT="${TIMEZONE_DEFAULT:-America/Denver}"
 
 export GIT_HASH=${GIT_HASH:-"$(git rev-parse HEAD)"}
 
