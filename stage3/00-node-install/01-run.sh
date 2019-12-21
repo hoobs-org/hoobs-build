@@ -20,9 +20,6 @@ curl -ksS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 
-npm install -g npm@6.11.3
-npm config set -g prefix /usr/local
-
 apt-get update && apt-get install -y yarn
 
 node -v
