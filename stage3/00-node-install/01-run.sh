@@ -10,13 +10,19 @@ echo "Installing Node.js"
 set -e
 set -x
 
-tar -xzf /node-v10.17.0-linux-armv7l.tar.gz -C /usr/local --strip-components=1 --no-same-owner
+tar -xzf /node-v10.17.0-linux-armv7l.tar.gz -C /usr --strip-components=1 --no-same-owner
 rm -rf /node-v10.17.0-linux-armv7l.tar.gz
 
+npm config set -g prefix /usr/local
+
 curl -ksS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
 npm install -g npm@6.11.3
+npm config set -g prefix /usr/local
+
 apt-get update && apt-get install -y yarn
 
 node -v

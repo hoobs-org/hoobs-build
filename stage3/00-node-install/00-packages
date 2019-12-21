@@ -1,6 +1,7 @@
 apt-transport-https
 ca-certificates
 curl
+tar
 gnupg-agent
 software-properties-common
 python-setuptools
@@ -9,3 +10,4 @@ gcc
 g++
 make
 ntpdate
+git
