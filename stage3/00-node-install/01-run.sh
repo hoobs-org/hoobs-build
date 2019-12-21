@@ -10,7 +10,7 @@ echo "Installing Node.js"
 set -e
 set -x
 
-tar -xzf /node-v10.17.0-linux-armv7l.tar.gz -C /usr --strip-components=1 --no-same-owner
+tar -xzf /node-v10.17.0-linux-armv7l.tar.gz -C /usr/local --strip-components=1 --no-same-owner
 rm -rf /node-v10.17.0-linux-armv7l.tar.gz
 
 npm config set -g prefix /usr/local
