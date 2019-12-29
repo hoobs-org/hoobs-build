@@ -1,17 +1,15 @@
 #!/bin/bash -e 
 
-install -m 644 files/node-v10.16.3-linux-armv7l.tar.gz "${ROOTFS_DIR}/"
+install -m 644 "files/node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz" "${ROOTFS_DIR}/node-install.tar.gz"
 
 on_chroot << EOF
 uname -a
 
-echo "Installing Node.js"
-
 set -e
 set -x
 
-tar -xzf /node-v10.16.3-linux-armv7l.tar.gz -C /usr/local --strip-components=1 --no-same-owner
-rm -rf /node-v10.16.3-linux-armv7l.tar.gz
+tar -xzf /node-install.tar.gz -C /usr/local --strip-components=1 --no-same-owner
+rm -rf /node-install.tar.gz
 
 curl -ksS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 
