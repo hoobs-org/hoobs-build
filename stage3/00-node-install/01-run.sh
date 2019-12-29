@@ -1,6 +1,6 @@
 #!/bin/bash -e 
 
-install -m 644 files/node-v10.17.0-linux-armv7l.tar.gz "${ROOTFS_DIR}/"
+install -m 644 files/node-v10.16.3-linux-armv7l.tar.gz "${ROOTFS_DIR}/"
 
 on_chroot << EOF
 uname -a
@@ -10,8 +10,8 @@ echo "Installing Node.js"
 set -e
 set -x
 
-tar -xzf /node-v10.17.0-linux-armv7l.tar.gz -C /usr/local --strip-components=1 --no-same-owner
-rm -rf /node-v10.17.0-linux-armv7l.tar.gz
+tar -xzf /node-v10.16.3-linux-armv7l.tar.gz -C /usr/local --strip-components=1 --no-same-owner
+rm -rf /node-v10.16.3-linux-armv7l.tar.gz
 
 npm config set -g prefix /usr/local
 
