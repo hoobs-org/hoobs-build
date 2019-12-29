@@ -1,4 +1,6 @@
 UNRELEASED:
+  *
+2019-09-26:
   * rpi-eeprom included
     - This will automatically update the SPI EEPROM on the Raspberry Pi 4 to the latest stable version.
        See https://rpf.io/eeprom for more information.
@@ -39,8 +41,8 @@ UNRELEASED:
   * Epiphany/Web removed
   * ntfs-3g included
   * pciutils added
-  * Linux kernel 4.19.71
-  * Raspberry Pi firmware 04ddd4957d470528d7b26ea00a37d8fe2f1e2db7
+  * Linux kernel 4.19.75
+  * Raspberry Pi firmware 01508e81ec1e918448227ca864616d56c430b46d
 2019-07-10:
   * Clearer options for switching of Pi 4 video output in Raspberry Pi Configuration
   * Option added to Appearance Settings to move taskbar to second monitor
