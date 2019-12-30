@@ -1,6 +1,6 @@
 [Unit]
 Description=HOOBS
-After=network-online.target nginx.service
+After=network-online.target
 
 [Service]
 Type=simple
