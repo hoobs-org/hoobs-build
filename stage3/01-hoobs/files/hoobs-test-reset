@@ -1,0 +1,5 @@
+#!/bin/bash
+
+sudo hoobs service stop
+sudo rm -fR /home/hoobs/.hoobs
+sudo shutdown -h now
