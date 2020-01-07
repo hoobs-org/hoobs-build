@@ -1,0 +1,198 @@
+#!/bin/bash
+
+MODE=""
+ARCH=""
+NODE="stable"
+
+usage()
+{
+    echo ""
+    echo "help: hoobs [command] [-n | --node tag]"
+    echo "    Display information about builtin commands."
+    echo ""
+    echo "    This is used to build the HOOBS SD card images."
+    echo ""
+    echo "    Commands:"
+    echo "        build                    builds all architectures"
+    echo "        build armv7l             builds the armv7l architecture"
+    echo "        build armv6l             builds the armv6l architecture"
+    echo ""
+    echo "    Options:"
+    echo "        -n, --node [tag]         node version tag (stable, lts, latest)"
+    echo "        -h, --help               displays this help menu"
+    echo ""
+    echo "    Returns:"
+    echo "        Returns success unless the install fails."
+    echo ""
+}
+
+line()
+{
+    echo "--------------------------------------------------------------------------------------------------------------------------"
+}
+
+while [ "$1" != "" ]; do
+    case $1 in
+        build )         MODE="build"
+                        ;;
+
+        armv7l )        ARCH="armv7l"
+                        ;;
+
+        armv6l )        ARCH="armv6l"
+                        ;;
+
+        -n | --node )   shift
+                        NODE=$1
+                        ;;
+
+        -h | --help )   usage
+                        exit
+                        ;;
+
+        * )             usage
+                        exit
+    esac
+
+    shift
+done
+
+cd "$(dirname "$0")"
+
+case $MODE in
+    "build")    case $ARCH in
+                    "armv7l")   case $NODE in
+                                    "stable")   echo ""
+                                                echo "Fetching Updates"
+                                                line
+
+                                                git pull
+                                                sudo -i
+
+                                                line
+                                                echo ""
+                                                echo ""
+                                                echo "Building Current ARM V7"
+                                                line
+
+                                                ./build.sh -c config-current
+                                                ;;
+
+                                    "lts")      echo ""
+                                                echo "Fetching Updates"
+                                                line
+
+                                                git pull
+                                                sudo -i
+
+                                                line
+                                                echo ""
+                                                echo ""
+                                                echo "Building LTS ARM V7 Node LTS"
+                                                line
+
+                                                ./build.sh -c config-lts
+                                                ;;
+
+                                    "latest")   echo ""
+                                                echo "Fetching Updates"
+                                                line
+
+                                                git pull
+                                                sudo -i
+
+                                                line
+                                                echo ""
+                                                echo ""
+                                                echo "Building Development ARM V7 Latest Node"
+                                                line
+
+                                                ./build.sh -c config-dev
+                                                ;;
+
+                                    * )         usage
+                                                ;;
+                                esac
+
+                                ;;
+
+                    "armv6l")   case $NODE in
+                                    "stable")   echo ""
+                                                echo "Fetching Updates"
+                                                line
+
+                                                git pull
+                                                sudo -i
+
+                                                line
+                                                echo ""
+                                                echo ""
+                                                echo "Building Current ARM V6"
+                                                line
+
+                                                ./build.sh -c config-legacy
+                                                ;;
+
+                                    "lts")      echo ""
+                                                echo "Node LTS is not available for ARM 6"
+                                                echo ""
+                                                ;;
+
+                                    "latest")   echo ""
+                                                echo "Node Latest is not available for ARM 6"
+                                                echo ""
+                                                ;;
+
+                                    * )         usage
+                                                ;;
+                                esac
+
+                                ;;
+
+                    * )         echo ""
+                                echo "Fetching Updates"
+                                line
+
+                                git pull
+                                sudo -i
+
+                                line
+                                echo ""
+                                echo ""
+
+                                echo "Building Current ARM V7"
+                                line
+
+                                ./build.sh -c config-current
+
+                                line
+                                echo ""
+                                echo ""
+                                echo "Building Current ARM V6"
+
+                                ./build.sh -c config-legacy
+
+                                line
+                                echo ""
+                                echo ""
+                                echo "Building LTS ARM V7 Node LTS"
+
+                                ./build.sh -c config-lts
+
+                                line
+                                echo ""
+                                echo ""
+                                echo "Building Development ARM V7 Latest Node"
+
+                                ./build.sh -c config-dev
+
+                                line
+                                echo ""
+                                ;;
+                esac
+
+                ;;
+
+    * )         usage
+                ;;
+esac
