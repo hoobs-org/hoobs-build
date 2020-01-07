@@ -83,7 +83,7 @@ case $MODE in
                                                 echo "Building Current ARM V7"
                                                 line
 
-                                                ./build.sh -c config-current
+                                                ./build.sh -c ./config-current
                                                 ;;
 
                                     "lts")      echo ""
@@ -98,7 +98,7 @@ case $MODE in
                                                 echo "Building LTS ARM V7 Node LTS"
                                                 line
 
-                                                ./build.sh -c config-lts
+                                                ./build.sh -c ./config-lts
                                                 ;;
 
                                     "latest")   echo ""
@@ -113,7 +113,7 @@ case $MODE in
                                                 echo "Building Development ARM V7 Latest Node"
                                                 line
 
-                                                ./build.sh -c config-dev
+                                                ./build.sh -c ./config-dev
                                                 ;;
 
                                     * )         usage
@@ -135,7 +135,7 @@ case $MODE in
                                                 echo "Building Current ARM V6"
                                                 line
 
-                                                ./build.sh -c config-legacy
+                                                ./build.sh -c ./config-legacy
                                                 ;;
 
                                     "lts")      echo ""
@@ -167,28 +167,28 @@ case $MODE in
                                 echo "Building Current ARM V7"
                                 line
 
-                                ./build.sh -c config-current
+                                ./build.sh -c ./config-current
 
                                 line
                                 echo ""
                                 echo ""
                                 echo "Building Current ARM V6"
 
-                                ./build.sh -c config-legacy
+                                ./build.sh -c ./config-legacy
 
                                 line
                                 echo ""
                                 echo ""
                                 echo "Building LTS ARM V7 Node LTS"
 
-                                ./build.sh -c config-lts
+                                ./build.sh -c ./config-lts
 
                                 line
                                 echo ""
                                 echo ""
                                 echo "Building Development ARM V7 Latest Node"
 
-                                ./build.sh -c config-dev
+                                ./build.sh -c ./config-dev
 
                                 line
                                 echo ""
