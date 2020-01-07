@@ -3,6 +3,7 @@
 MODE=""
 ARCH=""
 NODE="stable"
+CONNECT="false"
 
 usage()
 {
@@ -20,6 +21,8 @@ usage()
     echo "        build                    builds all architectures"
     echo "        build armv7l             builds the armv7l architecture"
     echo "        build armv6l             builds the armv6l architecture"
+    echo "        build connect            builds the hoobs connect interface"
+    echo "        clean                    cleans the work and deploy directories"
     echo ""
     echo "    Options:"
     echo "        -n, --node [tag]         node version tag (stable, lts, latest)"
@@ -35,6 +38,16 @@ line()
     echo "--------------------------------------------------------------------------------------------------------------------------"
 }
 
+rm -f ./builds/wifi-connect-hoobs.tar.gz
+cp -R ./ui ./builds/
+cd ./builds/
+tar -cvzf ui.tar.gz ./ui/*
+mkdir ./wifi-connect-hoobs
+mv ./ui ./wifi-connect-hoobs/
+mv ./ui.tar.gz ./wifi-connect-hoobs/
+tar -cvzf wifi-connect-hoobs.tar.gz ./wifi-connect-hoobs/*
+rm -fR ./wifi-connect-hoobs
+
 if [ "$(id -u)" != "0" ]; then
 	usage
 	exit
@@ -45,10 +58,16 @@ while [ "$1" != "" ]; do
         build )         MODE="build"
                         ;;
 
+        clean )         MODE="clean"
+                        ;;
+
         armv7l )        ARCH="armv7l"
                         ;;
 
         armv6l )        ARCH="armv6l"
+                        ;;
+
+        connect )       CONNECT="true"
                         ;;
 
         -n | --node )   shift
@@ -69,132 +88,152 @@ done
 cd "$(dirname "$0")"
 
 case $MODE in
-    "build")    case $ARCH in
-                    "armv7l")   case $NODE in
-                                    "stable")   echo ""
-                                                echo "Fetching Updates"
-                                                line
+    "build")    if [[ "$CONNECT" = "true" ]]; then
+                    if [[ -f "../hoobs-connect/.gitignore" ]]; then
+                        cd ../hoobs-connect/
 
-                                                git pull
+                        npm pack
+                        rm -f ./builds/homebridge-to-hoobs.tgz
+                        mv ./homebridge-to-hoobs-*.tgz ./builds/homebridge-to-hoobs.tgz
+                        chmod 755 ./builds/homebridge-to-hoobs.tgz
+                    else
+                        echo "You need to clone the \"hoobs-connect\" repository at the same level as \"hoobs-core\"."
+                        echo "Run these commands."
+                        echo "    cd ../"
+                        echo "    git clone https://github.com/hoobs-org/hoobs-connect.git"
+                    fi
+                else
+                    case $ARCH in
+                        "armv7l")   case $NODE in
+                                        "stable")   echo ""
+                                                    echo "Fetching Updates"
+                                                    line
 
-                                                line
-                                                echo ""
-                                                echo ""
-                                                echo "Building Current ARM V7"
-                                                line
+                                                    git pull
 
-                                                ./build.sh -c ./config-current
-                                                ;;
+                                                    line
+                                                    echo ""
+                                                    echo ""
+                                                    echo "Building Current ARM V7"
+                                                    line
 
-                                    "lts")      echo ""
-                                                echo "Fetching Updates"
-                                                line
+                                                    ./build.sh -c ./config-current
+                                                    ;;
 
-                                                git pull
+                                        "lts")      echo ""
+                                                    echo "Fetching Updates"
+                                                    line
 
-                                                line
-                                                echo ""
-                                                echo ""
-                                                echo "Building LTS ARM V7 Node LTS"
-                                                line
+                                                    git pull
 
-                                                ./build.sh -c ./config-lts
-                                                ;;
+                                                    line
+                                                    echo ""
+                                                    echo ""
+                                                    echo "Building LTS ARM V7 Node LTS"
+                                                    line
 
-                                    "latest")   echo ""
-                                                echo "Fetching Updates"
-                                                line
+                                                    ./build.sh -c ./config-lts
+                                                    ;;
 
-                                                git pull
+                                        "latest")   echo ""
+                                                    echo "Fetching Updates"
+                                                    line
 
-                                                line
-                                                echo ""
-                                                echo ""
-                                                echo "Building Development ARM V7 Latest Node"
-                                                line
+                                                    git pull
 
-                                                ./build.sh -c ./config-dev
-                                                ;;
+                                                    line
+                                                    echo ""
+                                                    echo ""
+                                                    echo "Building Development ARM V7 Latest Node"
+                                                    line
 
-                                    * )         usage
-                                                ;;
-                                esac
+                                                    ./build.sh -c ./config-dev
+                                                    ;;
 
-                                ;;
+                                        * )         usage
+                                                    ;;
+                                    esac
 
-                    "armv6l")   case $NODE in
-                                    "stable")   echo ""
-                                                echo "Fetching Updates"
-                                                line
+                                    ;;
 
-                                                git pull
+                        "armv6l")   case $NODE in
+                                        "stable")   echo ""
+                                                    echo "Fetching Updates"
+                                                    line
 
-                                                line
-                                                echo ""
-                                                echo ""
-                                                echo "Building Current ARM V6"
-                                                line
+                                                    git pull
 
-                                                ./build.sh -c ./config-legacy
-                                                ;;
+                                                    line
+                                                    echo ""
+                                                    echo ""
+                                                    echo "Building Current ARM V6"
+                                                    line
 
-                                    "lts")      echo ""
-                                                echo "Node LTS is not available for ARM 6"
-                                                echo ""
-                                                ;;
+                                                    ./build.sh -c ./config-legacy
+                                                    ;;
 
-                                    "latest")   echo ""
-                                                echo "Node Latest is not available for ARM 6"
-                                                echo ""
-                                                ;;
+                                        "lts")      echo ""
+                                                    echo "Node LTS is not available for ARM 6"
+                                                    echo ""
+                                                    ;;
 
-                                    * )         usage
-                                                ;;
-                                esac
+                                        "latest")   echo ""
+                                                    echo "Node Latest is not available for ARM 6"
+                                                    echo ""
+                                                    ;;
 
-                                ;;
+                                        * )         usage
+                                                    ;;
+                                    esac
 
-                    * )         echo ""
-                                echo "Fetching Updates"
-                                line
+                                    ;;
 
-                                git pull
+                        * )         echo ""
+                                    echo "Fetching Updates"
+                                    line
 
-                                line
-                                echo ""
-                                echo ""
+                                    git pull
 
-                                echo "Building Current ARM V7"
-                                line
+                                    line
+                                    echo ""
+                                    echo ""
 
-                                ./build.sh -c ./config-current
+                                    echo "Building Current ARM V7"
+                                    line
 
-                                line
-                                echo ""
-                                echo ""
-                                echo "Building Current ARM V6"
+                                    ./build.sh -c ./config-current
 
-                                ./build.sh -c ./config-legacy
+                                    line
+                                    echo ""
+                                    echo ""
+                                    echo "Building Current ARM V6"
 
-                                line
-                                echo ""
-                                echo ""
-                                echo "Building LTS ARM V7 Node LTS"
+                                    ./build.sh -c ./config-legacy
 
-                                ./build.sh -c ./config-lts
+                                    line
+                                    echo ""
+                                    echo ""
+                                    echo "Building LTS ARM V7 Node LTS"
 
-                                line
-                                echo ""
-                                echo ""
-                                echo "Building Development ARM V7 Latest Node"
+                                    ./build.sh -c ./config-lts
 
-                                ./build.sh -c ./config-dev
+                                    line
+                                    echo ""
+                                    echo ""
+                                    echo "Building Development ARM V7 Latest Node"
 
-                                line
-                                echo ""
-                                ;;
-                esac
+                                    ./build.sh -c ./config-dev
 
+                                    line
+                                    echo ""
+                                    ;;
+                    esac
+                fi
+
+                ;;
+
+    "clean")    rm -fR ./work
+                rm -fR ./deploy
                 ;;
 
     * )         usage
