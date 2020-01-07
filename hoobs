@@ -12,6 +12,10 @@ usage()
     echo ""
     echo "    This is used to build the HOOBS SD card images."
     echo ""
+    echo "    Note:"
+    echo "        This script requires elevated permissions, please run this with"
+    echo "        SUDO or ROOT privileges."
+    echo ""
     echo "    Commands:"
     echo "        build                    builds all architectures"
     echo "        build armv7l             builds the armv7l architecture"
@@ -30,6 +34,11 @@ line()
 {
     echo "--------------------------------------------------------------------------------------------------------------------------"
 }
+
+if [ "$(id -u)" != "0" ]; then
+	usage
+	exit
+fi
 
 while [ "$1" != "" ]; do
     case $1 in
@@ -67,7 +76,6 @@ case $MODE in
                                                 line
 
                                                 git pull
-                                                sudo -i
 
                                                 line
                                                 echo ""
@@ -83,7 +91,6 @@ case $MODE in
                                                 line
 
                                                 git pull
-                                                sudo -i
 
                                                 line
                                                 echo ""
@@ -99,7 +106,6 @@ case $MODE in
                                                 line
 
                                                 git pull
-                                                sudo -i
 
                                                 line
                                                 echo ""
@@ -122,7 +128,6 @@ case $MODE in
                                                 line
 
                                                 git pull
-                                                sudo -i
 
                                                 line
                                                 echo ""
@@ -154,7 +159,6 @@ case $MODE in
                                 line
 
                                 git pull
-                                sudo -i
 
                                 line
                                 echo ""
