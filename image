@@ -4,11 +4,12 @@ MODE=""
 ARCH=""
 NODE="stable"
 CONNECT="false"
+DOCKER="false"
 
 usage()
 {
     echo ""
-    echo "help: hoobs [command] [-n | --node tag]"
+    echo "help: image [command] [-n | --node tag] [-c | --container]"
     echo "    Display information about builtin commands."
     echo ""
     echo "    This is used to build the HOOBS SD card images."
@@ -25,6 +26,7 @@ usage()
     echo "        clean                    cleans the work and deploy directories"
     echo ""
     echo "    Options:"
+    echo "        -c, --container          build using a docker container"
     echo "        -n, --node [tag]         node version tag (stable, lts, latest)"
     echo "        -h, --help               displays this help menu"
     echo ""
@@ -48,38 +50,36 @@ mv ./ui.tar.gz ./wifi-connect-hoobs/
 tar -cvzf wifi-connect-hoobs.tar.gz ./wifi-connect-hoobs/*
 rm -fR ./wifi-connect-hoobs
 
-if [ "$(id -u)" != "0" ]; then
-	usage
-	exit
-fi
-
 while [ "$1" != "" ]; do
     case $1 in
-        build )         MODE="build"
-                        ;;
+        build )             MODE="build"
+                            ;;
 
-        clean )         MODE="clean"
-                        ;;
+        clean )             MODE="clean"
+                            ;;
 
-        armv7l )        ARCH="armv7l"
-                        ;;
+        armv7l )            ARCH="armv7l"
+                            ;;
 
-        armv6l )        ARCH="armv6l"
-                        ;;
+        armv6l )            ARCH="armv6l"
+                            ;;
 
-        connect )       CONNECT="true"
-                        ;;
+        connect )           CONNECT="true"
+                            ;;
 
-        -n | --node )   shift
-                        NODE=$1
-                        ;;
+        -n | --node )       shift
+                            NODE=$1
+                            ;;
 
-        -h | --help )   usage
-                        exit
-                        ;;
+        -c | --container)   DOCKER="true"
+                            ;;
 
-        * )             usage
-                        exit
+        -h | --help )       usage
+                            exit
+                            ;;
+
+        * )                 usage
+                            exit
     esac
 
     shift
@@ -117,7 +117,12 @@ case $MODE in
                                                     echo "Building Current ARM V7"
                                                     line
 
-                                                    ./build.sh -c ./config-current
+                                                    if [[ "$CONNECT" = "true" ]]; then
+                                                        ./build-docker.sh -c armv7l
+                                                    else
+                                                        ./build.sh -c armv7l
+                                                    fi
+
                                                     ;;
 
                                         "lts")      echo ""
@@ -132,7 +137,12 @@ case $MODE in
                                                     echo "Building LTS ARM V7 Node LTS"
                                                     line
 
-                                                    ./build.sh -c ./config-lts
+                                                    if [[ "$CONNECT" = "true" ]]; then
+                                                        ./build-docker.sh -c armv7lts
+                                                    else
+                                                        ./build.sh -c armv7lts
+                                                    fi
+
                                                     ;;
 
                                         "latest")   echo ""
@@ -147,7 +157,12 @@ case $MODE in
                                                     echo "Building Development ARM V7 Latest Node"
                                                     line
 
-                                                    ./build.sh -c ./config-dev
+                                                    if [[ "$CONNECT" = "true" ]]; then
+                                                        ./build-docker.sh -c armv7latest
+                                                    else
+                                                        ./build.sh -c armv7latest
+                                                    fi
+
                                                     ;;
 
                                         * )         usage
@@ -169,7 +184,12 @@ case $MODE in
                                                     echo "Building Current ARM V6"
                                                     line
 
-                                                    ./build.sh -c ./config-legacy
+                                                    if [[ "$CONNECT" = "true" ]]; then
+                                                        ./build-docker.sh -c armv6l
+                                                    else
+                                                        ./build.sh -c armv6l
+                                                    fi
+
                                                     ;;
 
                                         "lts")      echo ""
@@ -201,28 +221,44 @@ case $MODE in
                                     echo "Building Current ARM V7"
                                     line
 
-                                    ./build.sh -c ./config-current
+                                    if [[ "$CONNECT" = "true" ]]; then
+                                        ./build-docker.sh -c armv7l
+                                    else
+                                        ./build.sh -c armv7l
+                                    fi
 
                                     line
                                     echo ""
                                     echo ""
                                     echo "Building Current ARM V6"
 
-                                    ./build.sh -c ./config-legacy
+                                    if [[ "$CONNECT" = "true" ]]; then
+                                        ./build-docker.sh -c armv6l
+                                    else
+                                        ./build.sh -c armv6l
+                                    fi
 
                                     line
                                     echo ""
                                     echo ""
                                     echo "Building LTS ARM V7 Node LTS"
 
-                                    ./build.sh -c ./config-lts
+                                    if [[ "$CONNECT" = "true" ]]; then
+                                        ./build-docker.sh -c armv7lts
+                                    else
+                                        ./build.sh -c armv7lts
+                                    fi
 
                                     line
                                     echo ""
                                     echo ""
                                     echo "Building Development ARM V7 Latest Node"
 
-                                    ./build.sh -c ./config-dev
+                                    if [[ "$CONNECT" = "true" ]]; then
+                                        ./build-docker.sh -c armv7latest
+                                    else
+                                        ./build.sh -c armv7latest
+                                    fi
 
                                     line
                                     echo ""
