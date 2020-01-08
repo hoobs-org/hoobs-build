@@ -205,6 +205,8 @@ export QUILT_REFRESH_ARGS="-p ab"
 export NODE_VERSION
 export NODE_ARCH
 
+rm -fR "${WORK_DIR}/stage4"
+
 # shellcheck source=scripts/common
 source "${SCRIPT_DIR}/common"
 # shellcheck source=scripts/dependencies_check
