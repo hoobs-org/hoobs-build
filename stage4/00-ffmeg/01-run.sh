@@ -12,7 +12,6 @@ cd ./fdk-aac
 ./configure --prefix=/usr/local --enable-shared --enable-static
 
 make -j4
-
 make install
 ldconfig
 
@@ -24,8 +23,8 @@ git clone https://github.com/hoobs-org/ffmpeg.git
 cd ./ffmpeg
 
 ./configure --prefix=/usr/local --arch=armel --enable-cross-compile --target-os=linux --enable-omx-rpi --enable-nonfree --enable-gpl --enable-libfdk-aac --enable-mmal --enable-libx264 --enable-decoder=h264 --enable-network --enable-protocol=tcp --enable-demuxer=rtsp
-make -j4
 
+make -j4
 make install
 
 cd ../
