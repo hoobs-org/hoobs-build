@@ -2,7 +2,7 @@
 
 MODE=""
 ARCH=""
-NODE="stable"
+NODE="10.18.0"
 CONNECT="false"
 DOCKER="false"
 
@@ -27,7 +27,7 @@ usage()
     echo ""
     echo "    Options:"
     echo "        -c, --container          build using a docker container"
-    echo "        -n, --node [tag]         node version tag (stable, lts, latest)"
+    echo "        -n, --node [tag]         node version tag"
     echo "        -h, --help               displays this help menu"
     echo ""
     echo "    Returns:"
@@ -78,7 +78,7 @@ done
 cd "$(dirname "$0")"
 
 case $MODE in
-    "build")    if [[ "$CONNECT" = "true" ]]; then
+    "build" )   if [[ "$CONNECT" = "true" ]]; then
                     if [[ -f "../hoobs-connect/.gitignore" ]]; then
                         cd ../hoobs-connect/
 
@@ -100,108 +100,92 @@ case $MODE in
                     fi
                 else
                     case $ARCH in
-                        "armv7l")   case $NODE in
-                                        "stable")   echo ""
-                                                    echo "Fetching Updates"
-                                                    line
+                        "armv7l" )  echo ""
+                                    echo "Fetching Updates"
+                                    line
 
-                                                    git pull
+                                    git pull
 
-                                                    line
-                                                    echo ""
-                                                    echo ""
-                                                    echo "Building Current ARM V7"
-                                                    line
+                                    line
+                                    echo ""
+                                    echo "Building $NODE ARM V7"
+                                    line
 
-                                                    if [[ "$DOCKER" = "true" ]]; then
-                                                        ./build-docker.sh -c armv7l
+                                    case $NODE in
+                                        "10.18.0")  if [[ "$DOCKER" = "true" ]]; then
+                                                        ./build-docker.sh -c armv7l101800
                                                     else
-                                                        sudo ./build.sh -c armv7l
+                                                        sudo ./build.sh -c armv7l101800
                                                     fi
 
                                                     ;;
 
-                                        "lts")      echo ""
-                                                    echo "Fetching Updates"
-                                                    line
-
-                                                    git pull
-
-                                                    line
-                                                    echo ""
-                                                    echo ""
-                                                    echo "Building LTS ARM V7 Node LTS"
-                                                    line
-
-                                                    if [[ "$DOCKER" = "true" ]]; then
-                                                        ./build-docker.sh -c armv7lts
+                                        "12.14.1")  if [[ "$DOCKER" = "true" ]]; then
+                                                        ./build-docker.sh -c armv7l121401
                                                     else
-                                                        sudo ./build.sh -c armv7lts
+                                                        sudo ./build.sh -c armv7l121401
                                                     fi
 
                                                     ;;
 
-                                        "latest")   echo ""
-                                                    echo "Fetching Updates"
-                                                    line
-
-                                                    git pull
-
-                                                    line
-                                                    echo ""
-                                                    echo ""
-                                                    echo "Building Development ARM V7 Latest Node"
-                                                    line
-
-                                                    if [[ "$DOCKER" = "true" ]]; then
-                                                        ./build-docker.sh -c armv7latest
+                                        "13.6.0")   if [[ "$DOCKER" = "true" ]]; then
+                                                        ./build-docker.sh -c armv7l130600
                                                     else
-                                                        sudo ./build.sh -c armv7latest
+                                                        sudo ./build.sh -c armv7l130600
                                                     fi
 
                                                     ;;
 
-                                        * )         usage
+                                        * )         echo "Node $NODE is not available for ARM 7"
                                                     ;;
                                     esac
 
+                                    line
+                                    echo ""
                                     ;;
 
-                        "armv6l")   case $NODE in
-                                        "stable")   echo ""
-                                                    echo "Fetching Updates"
-                                                    line
+                        "armv6l" )  echo ""
+                                    echo "Fetching Updates"
+                                    line
 
-                                                    git pull
+                                    git pull
 
-                                                    line
-                                                    echo ""
-                                                    echo ""
-                                                    echo "Building Current ARM V6"
-                                                    line
+                                    line
+                                    echo ""
+                                    echo "Building $NODE ARM V6"
+                                    line
 
-                                                    if [[ "$DOCKER" = "true" ]]; then
-                                                        ./build-docker.sh -c armv6l
+                                    case $NODE in
+                                        "10.18.0")  if [[ "$DOCKER" = "true" ]]; then
+                                                        ./build-docker.sh -c armv6l101800
                                                     else
-                                                        sudo ./build.sh -c armv6l
+                                                        sudo ./build.sh -c armv6l101800
                                                     fi
 
                                                     ;;
 
-                                        "lts")      echo ""
-                                                    echo "Node LTS is not available for ARM 6"
-                                                    echo ""
+                                        "12.14.1")  if [[ "$DOCKER" = "true" ]]; then
+                                                        ./build-docker.sh -c armv6l121401
+                                                    else
+                                                        sudo ./build.sh -c armv6l121401
+                                                    fi
+
                                                     ;;
 
-                                        "latest")   echo ""
-                                                    echo "Node Latest is not available for ARM 6"
-                                                    echo ""
+                                        "13.6.0")   if [[ "$DOCKER" = "true" ]]; then
+                                                        ./build-docker.sh -c armv6l130600
+                                                    else
+                                                        sudo ./build.sh -c armv6l130600
+                                                    fi
+
                                                     ;;
 
-                                        * )         usage
+                                        * )         echo "Node $NODE is not available for ARM 6"
                                                     ;;
                                     esac
 
+                                    line
+                                    echo ""
                                     ;;
 
                         * )         echo ""
@@ -212,48 +196,43 @@ case $MODE in
 
                                     line
                                     echo ""
-                                    echo ""
-
-                                    echo "Building Current ARM V7"
+                                    echo "Building 10.18.0 ARM V7"
                                     line
 
                                     if [[ "$DOCKER" = "true" ]]; then
-                                        ./build-docker.sh -c armv7l
+                                        ./build-docker.sh -c armv7l101800
                                     else
-                                        sudo ./build.sh -c armv7l
+                                        sudo ./build.sh -c armv7l101800
                                     fi
 
                                     line
                                     echo ""
-                                    echo ""
-                                    echo "Building Current ARM V6"
+                                    echo "Building 10.18.0 ARM V6"
 
                                     if [[ "$DOCKER" = "true" ]]; then
-                                        ./build-docker.sh -c armv6l
+                                        ./build-docker.sh -c armv6l101800
                                     else
-                                        sudo ./build.sh -c armv6l
+                                        sudo ./build.sh -c armv6l101800
                                     fi
 
                                     line
                                     echo ""
-                                    echo ""
-                                    echo "Building LTS ARM V7 Node LTS"
+                                    echo "Building 12.14.1 ARM V7"
 
                                     if [[ "$DOCKER" = "true" ]]; then
-                                        ./build-docker.sh -c armv7lts
+                                        ./build-docker.sh -c armv7l121401
                                     else
-                                        sudo ./build.sh -c armv7lts
+                                        sudo ./build.sh -c armv7l121401
                                     fi
 
                                     line
                                     echo ""
-                                    echo ""
-                                    echo "Building Development ARM V7 Latest Node"
+                                    echo "Building 13.6.0 ARM V7"
 
                                     if [[ "$DOCKER" = "true" ]]; then
-                                        ./build-docker.sh -c armv7latest
+                                        ./build-docker.sh -c armv7l130600
                                     else
-                                        sudo ./build.sh -c armv7latest
+                                        sudo ./build.sh -c armv7l130600
                                     fi
 
                                     line
@@ -264,8 +243,15 @@ case $MODE in
 
                 ;;
 
-    "clean")    rm -fR ./work
+    "clean" )   echo ""
+                echo "Fetching Updates"
+                line
+
+                rm -fR ./work
                 rm -fR ./deploy
+
+                line
+                echo ""
                 ;;
 
     * )         usage
