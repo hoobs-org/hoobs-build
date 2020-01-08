@@ -1,4 +1,7 @@
 on_chroot << EOF
+uname -a
+
+set -e
 set -x
 
 git clone https://github.com/hoobs-org/fdk-aac.git
