@@ -224,10 +224,14 @@ case $MODE in
                 ;;
 
     "clean" )   echo ""
-                echo "Fetching Updates"
+                echo "Cleaning Builds"
                 line
+                echo "Removing work directory"
 
                 rm -fR ./work
+
+                echo "Removing deploy directory"
+
                 rm -fR ./deploy
 
                 line
