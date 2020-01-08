@@ -4,6 +4,7 @@ uname -a
 set -e
 set -x
 
+rm -fR ./fdk-aac
 git clone https://github.com/hoobs-org/fdk-aac.git
 cd ./fdk-aac
 
@@ -18,6 +19,7 @@ ldconfig
 cd ../
 rm -fR ./fdk-aac
 
+rm -fR ./ffmpeg
 git clone https://github.com/hoobs-org/ffmpeg.git
 cd ./ffmpeg
 
