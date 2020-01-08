@@ -10,4 +10,4 @@ FIRST_USER_PASS=hoobsadmin
 ENABLE_SSH=1
 NODE_VERSION="13.6.0"
 NODE_ARCH="armv7l"
-STAGE_LIST="stage0 stage1 stage2 stage3"
+STAGE_LIST="stage0 stage1 stage2 stage3 stage4"
