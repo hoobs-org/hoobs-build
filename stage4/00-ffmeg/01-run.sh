@@ -1,32 +1,17 @@
+#!/bin/bash -e 
+
+install -m 644 "files/ffmpeg.tar.gz" "${ROOTFS_DIR}/ffmpeg.tar.gz"
+
 on_chroot << EOF
 uname -a
 
 set -e
 set -x
 
-rm -fR ./fdk-aac
-git clone https://github.com/hoobs-org/fdk-aac.git
-cd ./fdk-aac
+tar -xzf /ffmpeg.tar.gz -C /usr/local --strip-components=1 --no-same-owner
+rm -rf /ffmpeg.tar.gz
 
-./autogen.sh
-./configure --prefix=/usr/local --enable-shared --enable-static
-
-make -j4
-make install
 ldconfig
 
-cd ../
-rm -fR ./fdk-aac
-
-rm -fR ./ffmpeg
-git clone https://github.com/hoobs-org/ffmpeg.git
-cd ./ffmpeg
-
-./configure --prefix=/usr/local --arch=armel --enable-cross-compile --target-os=linux --enable-omx-rpi --enable-nonfree --enable-gpl --enable-libfdk-aac --enable-mmal --enable-libx264 --enable-decoder=h264 --enable-network --enable-protocol=tcp --enable-demuxer=rtsp
-
-make -j4
-make install
-
-cd ../
-rm -fR ./ffmpeg
+ffmpeg -version
 EOF
