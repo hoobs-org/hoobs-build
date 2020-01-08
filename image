@@ -40,16 +40,6 @@ line()
     echo "--------------------------------------------------------------------------------------------------------------------------"
 }
 
-rm -f ./builds/wifi-connect-hoobs.tar.gz
-cp -R ./ui ./builds/
-cd ./builds/
-tar -cvzf ui.tar.gz ./ui/*
-mkdir ./wifi-connect-hoobs
-mv ./ui ./wifi-connect-hoobs/
-mv ./ui.tar.gz ./wifi-connect-hoobs/
-tar -cvzf wifi-connect-hoobs.tar.gz ./wifi-connect-hoobs/*
-rm -fR ./wifi-connect-hoobs
-
 while [ "$1" != "" ]; do
     case $1 in
         build )             MODE="build"
@@ -92,10 +82,16 @@ case $MODE in
                     if [[ -f "../hoobs-connect/.gitignore" ]]; then
                         cd ../hoobs-connect/
 
-                        npm pack
-                        rm -f ./builds/homebridge-to-hoobs.tgz
-                        mv ./homebridge-to-hoobs-*.tgz ./builds/homebridge-to-hoobs.tgz
-                        chmod 755 ./builds/homebridge-to-hoobs.tgz
+                        rm -f ./builds/wifi-connect-hoobs.tar.gz
+                        cp -R ./ui ./builds/
+                        cd ./builds/
+                        tar -cvzf ui.tar.gz ./ui/*
+                        mkdir ./wifi-connect-hoobs
+                        mv ./ui ./wifi-connect-hoobs/
+                        mv ./ui.tar.gz ./wifi-connect-hoobs/
+                        tar -cvzf wifi-connect-hoobs.tar.gz ./wifi-connect-hoobs/*
+                        chmod 755 ./wifi-connect-hoobs.tar.gz
+                        rm -fR ./wifi-connect-hoobs
                     else
                         echo "You need to clone the \"hoobs-connect\" repository at the same level as \"hoobs-core\"."
                         echo "Run these commands."
@@ -117,10 +113,10 @@ case $MODE in
                                                     echo "Building Current ARM V7"
                                                     line
 
-                                                    if [[ "$CONNECT" = "true" ]]; then
+                                                    if [[ "$DOCKER" = "true" ]]; then
                                                         ./build-docker.sh -c armv7l
                                                     else
-                                                        ./build.sh -c armv7l
+                                                        sudo ./build.sh -c armv7l
                                                     fi
 
                                                     ;;
@@ -137,10 +133,10 @@ case $MODE in
                                                     echo "Building LTS ARM V7 Node LTS"
                                                     line
 
-                                                    if [[ "$CONNECT" = "true" ]]; then
+                                                    if [[ "$DOCKER" = "true" ]]; then
                                                         ./build-docker.sh -c armv7lts
                                                     else
-                                                        ./build.sh -c armv7lts
+                                                        sudo ./build.sh -c armv7lts
                                                     fi
 
                                                     ;;
@@ -157,10 +153,10 @@ case $MODE in
                                                     echo "Building Development ARM V7 Latest Node"
                                                     line
 
-                                                    if [[ "$CONNECT" = "true" ]]; then
+                                                    if [[ "$DOCKER" = "true" ]]; then
                                                         ./build-docker.sh -c armv7latest
                                                     else
-                                                        ./build.sh -c armv7latest
+                                                        sudo ./build.sh -c armv7latest
                                                     fi
 
                                                     ;;
@@ -184,10 +180,10 @@ case $MODE in
                                                     echo "Building Current ARM V6"
                                                     line
 
-                                                    if [[ "$CONNECT" = "true" ]]; then
+                                                    if [[ "$DOCKER" = "true" ]]; then
                                                         ./build-docker.sh -c armv6l
                                                     else
-                                                        ./build.sh -c armv6l
+                                                        sudo ./build.sh -c armv6l
                                                     fi
 
                                                     ;;
@@ -221,10 +217,10 @@ case $MODE in
                                     echo "Building Current ARM V7"
                                     line
 
-                                    if [[ "$CONNECT" = "true" ]]; then
+                                    if [[ "$DOCKER" = "true" ]]; then
                                         ./build-docker.sh -c armv7l
                                     else
-                                        ./build.sh -c armv7l
+                                        sudo ./build.sh -c armv7l
                                     fi
 
                                     line
@@ -232,10 +228,10 @@ case $MODE in
                                     echo ""
                                     echo "Building Current ARM V6"
 
-                                    if [[ "$CONNECT" = "true" ]]; then
+                                    if [[ "$DOCKER" = "true" ]]; then
                                         ./build-docker.sh -c armv6l
                                     else
-                                        ./build.sh -c armv6l
+                                        sudo ./build.sh -c armv6l
                                     fi
 
                                     line
@@ -243,10 +239,10 @@ case $MODE in
                                     echo ""
                                     echo "Building LTS ARM V7 Node LTS"
 
-                                    if [[ "$CONNECT" = "true" ]]; then
+                                    if [[ "$DOCKER" = "true" ]]; then
                                         ./build-docker.sh -c armv7lts
                                     else
-                                        ./build.sh -c armv7lts
+                                        sudo ./build.sh -c armv7lts
                                     fi
 
                                     line
@@ -254,10 +250,10 @@ case $MODE in
                                     echo ""
                                     echo "Building Development ARM V7 Latest Node"
 
-                                    if [[ "$CONNECT" = "true" ]]; then
+                                    if [[ "$DOCKER" = "true" ]]; then
                                         ./build-docker.sh -c armv7latest
                                     else
-                                        ./build.sh -c armv7latest
+                                        sudo ./build.sh -c armv7latest
                                     fi
 
                                     line

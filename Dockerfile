@@ -11,4 +11,4 @@ RUN apt-get -y update && \
 
 COPY . /hoobs-gen/
 
-VOLUME [ "/hoobs-gen/work", "/hoobs-gen/deploy"]
+VOLUME [ "/hoobs-gen/work", "/hoobs-gen/deploy" ]
