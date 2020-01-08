@@ -75,8 +75,6 @@ while [ "$1" != "" ]; do
     shift
 done
 
-cd "$(dirname "$0")"
-
 case $MODE in
     "build" )   if [[ "$CONNECT" = "true" ]]; then
                     if [[ -f "../hoobs-connect/.gitignore" ]]; then
