@@ -217,26 +217,6 @@ case $MODE in
 
                                     line
                                     echo ""
-                                    echo "Building 12.14.1 ARM V7"
-
-                                    if [[ "$DOCKER" = "true" ]]; then
-                                        ./build-docker.sh -c armv7l121401
-                                    else
-                                        sudo ./build.sh -c armv7l121401
-                                    fi
-
-                                    line
-                                    echo ""
-                                    echo "Building 13.6.0 ARM V7"
-
-                                    if [[ "$DOCKER" = "true" ]]; then
-                                        ./build-docker.sh -c armv7l130600
-                                    else
-                                        sudo ./build.sh -c armv7l130600
-                                    fi
-
-                                    line
-                                    echo ""
                                     ;;
                     esac
                 fi
