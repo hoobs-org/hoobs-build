@@ -19,7 +19,7 @@ usage()
     echo "        SUDO or ROOT privileges."
     echo ""
     echo "    Commands:"
-    echo "        build                    builds all architectures"
+    echo "        build                    builds stable architectures"
     echo "        build armv7l             builds the armv7l architecture"
     echo "        build armv6l             builds the armv6l architecture"
     echo "        build connect            builds the hoobs connect interface"
