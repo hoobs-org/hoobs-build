@@ -1,6 +1,6 @@
 #!/bin/bash -e 
 
-install -m 644 "files/ffmpeg.tar.gz" "${ROOTFS_DIR}/ffmpeg.tar.gz"
+install -m 644 files/ffmpeg.tar.gz "${ROOTFS_DIR}/"
 
 on_chroot << EOF
 uname -a
