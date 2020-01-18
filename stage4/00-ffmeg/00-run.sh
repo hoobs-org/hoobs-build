@@ -13,6 +13,7 @@ apt-get update && apt-get install -y libx264-dev
 tar -xzf /ffmpeg.tar.gz -C /usr/local --strip-components=1 --no-same-owner
 rm -rf /ffmpeg.tar.gz
 
+ldconfig -n /usr/local/lib
 ldconfig
 
 ffmpeg -version
