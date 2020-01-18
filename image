@@ -2,7 +2,7 @@
 
 MODE=""
 ARCH=""
-NODE="10.18.0"
+NODE="12.14.1"
 CONNECT="false"
 DOCKER="false"
 
@@ -194,23 +194,23 @@ case $MODE in
 
                                     line
                                     echo ""
-                                    echo "Building 10.18.0 ARM V7"
+                                    echo "Building 12.14.1 ARM V7"
                                     line
 
                                     if [[ "$DOCKER" = "true" ]]; then
-                                        ./build-docker.sh -c armv7l101800
+                                        ./build-docker.sh -c armv7l121401
                                     else
-                                        sudo ./build.sh -c armv7l101800
+                                        sudo ./build.sh -c armv7l121401
                                     fi
 
                                     line
                                     echo ""
-                                    echo "Building 10.18.0 ARM V6"
+                                    echo "Building 12.14.1 ARM V6"
 
                                     if [[ "$DOCKER" = "true" ]]; then
-                                        ./build-docker.sh -c armv6l101800
+                                        ./build-docker.sh -c armv6l121401
                                     else
-                                        sudo ./build.sh -c armv6l101800
+                                        sudo ./build.sh -c armv6l121401
                                     fi
 
                                     line
