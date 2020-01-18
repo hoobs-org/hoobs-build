@@ -8,12 +8,13 @@ uname -a
 set -e
 set -x
 
-apt-get update && apt-get install -y libx264-dev
+apt-get update && apt-get install -y libtool libx264-dev
 
 tar -xzf /ffmpeg.tar.gz -C /usr/local --strip-components=1 --no-same-owner
 rm -rf /ffmpeg.tar.gz
 
-ldconfig
+libtool --finish /usr/local/lib
+ldconfig -n /usr/local/lib
 
 ffmpeg -version
 EOF
