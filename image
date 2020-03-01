@@ -2,7 +2,7 @@
 
 MODE=""
 ARCH=""
-NODE="12.16.1"
+NODE="12.14.1"
 CONNECT="false"
 DOCKER="false"
 
@@ -110,26 +110,26 @@ case $MODE in
                                     line
 
                                     case $NODE in
-                                        "10.19.0")  if [[ "$DOCKER" = "true" ]]; then
-                                                        ./build-docker.sh -c armv7l101900
+                                        "10.18.0")  if [[ "$DOCKER" = "true" ]]; then
+                                                        ./build-docker.sh -c armv7l101800
                                                     else
-                                                        sudo ./build.sh -c armv7l101900
+                                                        sudo ./build.sh -c armv7l101800
                                                     fi
 
                                                     ;;
 
-                                        "12.16.1")  if [[ "$DOCKER" = "true" ]]; then
-                                                        ./build-docker.sh -c armv7l121601
+                                        "12.14.1")  if [[ "$DOCKER" = "true" ]]; then
+                                                        ./build-docker.sh -c armv7l121401
                                                     else
-                                                        sudo ./build.sh -c armv7l121601
+                                                        sudo ./build.sh -c armv7l121401
                                                     fi
 
                                                     ;;
 
-                                        "13.9.0")   if [[ "$DOCKER" = "true" ]]; then
-                                                        ./build-docker.sh -c armv7l130900
+                                        "13.6.0")   if [[ "$DOCKER" = "true" ]]; then
+                                                        ./build-docker.sh -c armv7l130600
                                                     else
-                                                        sudo ./build.sh -c armv7l130900
+                                                        sudo ./build.sh -c armv7l130600
                                                     fi
 
                                                     ;;
@@ -154,26 +154,26 @@ case $MODE in
                                     line
 
                                     case $NODE in
-                                        "10.19.0")  if [[ "$DOCKER" = "true" ]]; then
-                                                        ./build-docker.sh -c armv6l101900
+                                        "10.18.0")  if [[ "$DOCKER" = "true" ]]; then
+                                                        ./build-docker.sh -c armv6l101800
                                                     else
-                                                        sudo ./build.sh -c armv6l101900
+                                                        sudo ./build.sh -c armv6l101800
                                                     fi
 
                                                     ;;
 
-                                        "12.16.1")  if [[ "$DOCKER" = "true" ]]; then
-                                                        ./build-docker.sh -c armv6l121601
+                                        "12.14.1")  if [[ "$DOCKER" = "true" ]]; then
+                                                        ./build-docker.sh -c armv6l121401
                                                     else
-                                                        sudo ./build.sh -c armv6l121601
+                                                        sudo ./build.sh -c armv6l121401
                                                     fi
 
                                                     ;;
 
-                                        "13.8.0")   if [[ "$DOCKER" = "true" ]]; then
-                                                        ./build-docker.sh -c armv6l130800
+                                        "13.6.0")   if [[ "$DOCKER" = "true" ]]; then
+                                                        ./build-docker.sh -c armv6l130600
                                                     else
-                                                        sudo ./build.sh -c armv6l130800
+                                                        sudo ./build.sh -c armv6l130600
                                                     fi
 
                                                     ;;
@@ -194,23 +194,23 @@ case $MODE in
 
                                     line
                                     echo ""
-                                    echo "Building 12.16.1 ARM V7"
+                                    echo "Building 12.14.1 ARM V7"
                                     line
 
                                     if [[ "$DOCKER" = "true" ]]; then
-                                        ./build-docker.sh -c armv7l121601
+                                        ./build-docker.sh -c armv7l121401
                                     else
-                                        sudo ./build.sh -c armv7l121601
+                                        sudo ./build.sh -c armv7l121401
                                     fi
 
                                     line
                                     echo ""
-                                    echo "Building 12.16.1 ARM V6"
+                                    echo "Building 12.14.1 ARM V6"
 
                                     if [[ "$DOCKER" = "true" ]]; then
-                                        ./build-docker.sh -c armv6l121601
+                                        ./build-docker.sh -c armv6l121401
                                     else
-                                        sudo ./build.sh -c armv6l121601
+                                        sudo ./build.sh -c armv6l121401
                                     fi
 
                                     line
