@@ -2,14 +2,13 @@
 
 MODE=""
 ARCH=""
-NODE="12.16.1"
+ACTION=""
 CONNECT="false"
-DOCKER="false"
 
 usage()
 {
     echo ""
-    echo "help: image [command] [-n | --node tag] [-c | --container]"
+    echo "help: image [command] [-c | --container]"
     echo "    Display information about builtin commands."
     echo ""
     echo "    This is used to build the HOOBS SD card images."
@@ -20,14 +19,11 @@ usage()
     echo ""
     echo "    Commands:"
     echo "        build                    builds stable architectures"
-    echo "        build armv7l             builds the armv7l architecture"
-    echo "        build armv6l             builds the armv6l architecture"
     echo "        build connect            builds the hoobs connect interface"
-    echo "        clean                    cleans the work and deploy directories"
+    echo "        volume create            create the build volumes"
+    echo "        volume remove            remove the build volumes"
     echo ""
     echo "    Options:"
-    echo "        -c, --container          build using a docker container"
-    echo "        -n, --node [tag]         node version tag"
     echo "        -h, --help               displays this help menu"
     echo ""
     echo "    Returns:"
@@ -45,23 +41,16 @@ while [ "$1" != "" ]; do
         build )             MODE="build"
                             ;;
 
-        clean )             MODE="clean"
+        volume )            MODE="volume"
                             ;;
 
-        armv7l )            ARCH="armv7l"
+        create )            ACTION="create"
                             ;;
 
-        armv6l )            ARCH="armv6l"
+        remove )            ACTION="remove"
                             ;;
 
         connect )           CONNECT="true"
-                            ;;
-
-        -n | --node )       shift
-                            NODE=$1
-                            ;;
-
-        -c | --container)   DOCKER="true"
                             ;;
 
         -h | --help )       usage
@@ -76,6 +65,18 @@ while [ "$1" != "" ]; do
 done
 
 case $MODE in
+    "volume" )  if [[ "$ACTION" = "create" ]]; then
+                    docker volume create ARM7
+                    docker volume create ARM6
+                fi
+
+                if [[ "$ACTION" = "remove" ]]; then
+                    docker volume rm ARM7
+                    docker volume rm ARM6
+                fi
+
+                ;;
+
     "build" )   if [[ "$CONNECT" = "true" ]]; then
                     if [[ -f "../hoobs-connect/.gitignore" ]]; then
                         cd ../hoobs-connect/
@@ -97,143 +98,24 @@ case $MODE in
                         echo "    git clone https://github.com/hoobs-org/hoobs-connect.git"
                     fi
                 else
-                    case $ARCH in
-                        "armv7l" )  echo ""
-                                    echo "Fetching Updates"
-                                    line
+                    echo ""
+                    echo "Building ARM7"
+                    line
 
-                                    git pull
+                    docker rm -v pigen_work > /dev/null 2>&1
+                    ./build-docker.sh -c ARM7
 
-                                    line
-                                    echo ""
-                                    echo "Building $NODE ARM V7"
-                                    line
+                    line
+                    echo ""
+                    echo "Building ARM6"
 
-                                    case $NODE in
-                                        "10.19.0")  if [[ "$DOCKER" = "true" ]]; then
-                                                        ./build-docker.sh -c armv7l101900
-                                                    else
-                                                        sudo ./build.sh -c armv7l101900
-                                                    fi
+                    docker rm -v pigen_work > /dev/null 2>&1
+                    ./build-docker.sh -c ARM6
 
-                                                    ;;
-
-                                        "12.16.1")  if [[ "$DOCKER" = "true" ]]; then
-                                                        ./build-docker.sh -c armv7l121601
-                                                    else
-                                                        sudo ./build.sh -c armv7l121601
-                                                    fi
-
-                                                    ;;
-
-                                        "13.9.0")   if [[ "$DOCKER" = "true" ]]; then
-                                                        ./build-docker.sh -c armv7l130900
-                                                    else
-                                                        sudo ./build.sh -c armv7l130900
-                                                    fi
-
-                                                    ;;
-
-                                        * )         echo "Node $NODE is not available for ARM 7"
-                                                    ;;
-                                    esac
-
-                                    line
-                                    echo ""
-                                    ;;
-
-                        "armv6l" )  echo ""
-                                    echo "Fetching Updates"
-                                    line
-
-                                    git pull
-
-                                    line
-                                    echo ""
-                                    echo "Building $NODE ARM V6"
-                                    line
-
-                                    case $NODE in
-                                        "10.19.0")  if [[ "$DOCKER" = "true" ]]; then
-                                                        ./build-docker.sh -c armv6l101900
-                                                    else
-                                                        sudo ./build.sh -c armv6l101900
-                                                    fi
-
-                                                    ;;
-
-                                        "12.16.1")  if [[ "$DOCKER" = "true" ]]; then
-                                                        ./build-docker.sh -c armv6l121601
-                                                    else
-                                                        sudo ./build.sh -c armv6l121601
-                                                    fi
-
-                                                    ;;
-
-                                        "13.8.0")   if [[ "$DOCKER" = "true" ]]; then
-                                                        ./build-docker.sh -c armv6l130800
-                                                    else
-                                                        sudo ./build.sh -c armv6l130800
-                                                    fi
-
-                                                    ;;
-
-                                        * )         echo "Node $NODE is not available for ARM 6"
-                                                    ;;
-                                    esac
-
-                                    line
-                                    echo ""
-                                    ;;
-
-                        * )         echo ""
-                                    echo "Fetching Updates"
-                                    line
-
-                                    git pull
-
-                                    line
-                                    echo ""
-                                    echo "Building 12.16.1 ARM V7"
-                                    line
-
-                                    if [[ "$DOCKER" = "true" ]]; then
-                                        ./build-docker.sh -c armv7l121601
-                                    else
-                                        sudo ./build.sh -c armv7l121601
-                                    fi
-
-                                    line
-                                    echo ""
-                                    echo "Building 12.16.1 ARM V6"
-
-                                    if [[ "$DOCKER" = "true" ]]; then
-                                        ./build-docker.sh -c armv6l121601
-                                    else
-                                        sudo ./build.sh -c armv6l121601
-                                    fi
-
-                                    line
-                                    echo ""
-                                    ;;
-                    esac
+                    line
+                    echo ""
                 fi
 
-                ;;
-
-    "clean" )   echo ""
-                echo "Cleaning Builds"
-                line
-                echo "Removing work directory"
-
-                rm -fR ./work
-
-                echo "Removing deploy directory"
-
-                rm -fR ./deploy
-
-                line
-                echo ""
                 ;;
 
     * )         usage
