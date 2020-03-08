@@ -1,6 +1,6 @@
 policycoreutils
 git
-python
+python3
 perl
 make
 gcc

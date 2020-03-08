@@ -2,7 +2,7 @@ gnupg-agent
 software-properties-common
 python-setuptools
 python-pip
-python
+python3
 gcc
 g++
 make
