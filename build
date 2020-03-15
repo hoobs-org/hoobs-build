@@ -1,0 +1,193 @@
+#!/bin/bash
+
+MODE=""
+ARCH=""
+ACTION=""
+CONNECT="false"
+
+motd()
+{
+    echo ""
+    echo "   _    _  ____   ____  ____   _____  "
+    echo "  | |  | |/ __ \ / __ \|  _ \ / ____| "
+    echo "  | |__| | |  | | |  | | |_) | (___   "
+    echo "  |  __  | |  | | |  | |  _ < \___ \  "
+    echo "  | |  | | |__| | |__| | |_) |____) | "
+    echo "  |_|  |_|\____/ \____/|____/|_____/  "
+    echo "                                      "
+}
+
+usage()
+{
+    echo ""
+    echo "help: image [command]"
+    echo "    Display information about builtin commands."
+    echo ""
+    echo "    This is used to build the HOOBS SD card images."
+    echo ""
+    echo "    Note:"
+    echo "        This script requires elevated permissions, please run this with"
+    echo "        SUDO or ROOT privileges."
+    echo ""
+    echo "    Commands:"
+    echo "        image                    builds stable architectures"
+    echo "        connect                  builds the hoobs connect interface"
+    echo "        volume create            create the build volumes"
+    echo "        volume remove            remove the build volumes"
+    echo ""
+    echo "    Options:"
+    echo "        -h, --help               displays this help menu"
+    echo ""
+    echo "    Returns:"
+    echo "        Returns success unless the install fails."
+    echo ""
+}
+
+line()
+{
+    echo "--------------------------------------------------------------------------------------------------------------------------"
+}
+
+while [ "$1" != "" ]; do
+    case $1 in
+        image )             MODE="image"
+                            ;;
+
+        volume )            MODE="volume"
+                            ;;
+
+        create )            ACTION="create"
+                            ;;
+
+        remove )            ACTION="remove"
+                            ;;
+
+        connect )           MODE="connect"
+                            ;;
+
+        -h | --help )       usage
+                            exit
+                            ;;
+
+        * )                 usage
+                            exit
+    esac
+
+    shift
+done
+
+case $MODE in
+    "volume" )  motd
+
+                if [[ "$ACTION" = "create" ]]; then
+                    echo ""
+                    echo "Creating Build Volumes"
+                    line
+
+                    docker rm -v hoobs-build
+
+                    docker volume create ARM6
+                    docker volume create ARM7
+                    docker volume create ARM8
+                    docker volume create hoobs-work
+
+                    line
+                    echo ""
+                fi
+
+                if [[ "$ACTION" = "remove" ]]; then
+                    echo ""
+                    echo "Removing Build Volumes"
+                    line
+
+                    docker rm -v hoobs-build
+
+                    docker volume rm ARM6
+                    docker volume rm ARM7
+                    docker volume rm ARM8
+                    docker volume rm hoobs-work
+
+                    line
+                    echo ""
+                fi
+
+                ;;
+
+    "connect" ) motd
+
+                if [[ -f "../hoobs-connect/.gitignore" ]]; then
+                    echo ""
+                    echo "Building Captive WiFi Portal"
+                    line
+
+                    cd ../hoobs-connect/
+
+                    rm -f ./builds/wifi-connect-hoobs.tar.gz
+                    cp -R ./ui ./builds/
+                    cd ./builds/
+                    tar -cvzf ui.tar.gz ./ui/*
+                    mkdir ./wifi-connect-hoobs
+                    mv ./ui ./wifi-connect-hoobs/
+                    mv ./ui.tar.gz ./wifi-connect-hoobs/
+                    tar -cvzf wifi-connect-hoobs.tar.gz ./wifi-connect-hoobs/*
+                    chmod 755 ./wifi-connect-hoobs.tar.gz
+                    rm -fR ./wifi-connect-hoobs
+
+                    line
+                    echo ""
+                else
+                    echo ""
+
+                    line
+
+                    echo "You need to clone the \"hoobs-connect\" repository at the same level as \"hoobs-core\"."
+                    echo "Run these commands."
+                    echo "    cd ../"
+                    echo "    git clone https://github.com/hoobs-org/hoobs-connect.git"
+
+                    line
+                    echo ""
+                fi
+
+                ;;
+
+    "image" )   motd
+
+                echo ""
+                echo "Building ARM6"
+                line
+
+                docker rm -v hoobs-build > /dev/null 2>&1
+                ./build-docker.sh -c ARM6
+
+                line
+                echo ""
+                echo "Building ARM7"
+                line
+
+                docker rm -v hoobs-build > /dev/null 2>&1
+                ./build-docker.sh -c ARM7
+
+                line
+                echo ""
+                echo "Building ARM8"
+                line
+
+                docker rm -v hoobs-build > /dev/null 2>&1
+                ./build-docker.sh -c ARM8
+
+                line
+                echo ""
+                line
+
+                ls -lah deploy
+
+                line
+                echo "Done! Your image(s) should be in deploy/"
+                echo ""
+
+                ;;
+
+    * )         usage
+                ;;
+esac

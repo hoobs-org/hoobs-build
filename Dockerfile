@@ -7,7 +7,7 @@ RUN apt-get -y update && \
         git vim parted \
         quilt coreutils qemu-user-static debootstrap zerofree zip dosfstools \
         bsdtar libcap2-bin rsync grep udev xz-utils curl xxd file kmod bc\
-        binfmt-support ca-certificates \
+        binfmt-support ca-certificates gcc-aarch64-linux-gnu \
     && rm -rf /var/lib/apt/lists/*
 
 COPY . /pi-gen/
