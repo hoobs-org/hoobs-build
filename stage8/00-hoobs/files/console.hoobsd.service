@@ -1,0 +1,14 @@
+[Unit]
+Description=HOOBS Console
+After=network-online.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/local/bin/hoobsd console --port 50820
+Restart=on-failure
+RestartSec=3
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target

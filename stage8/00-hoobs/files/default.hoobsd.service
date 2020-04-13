@@ -1,0 +1,14 @@
+[Unit]
+Description=HOOBS Default
+After=network-online.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/local/bin/hoobsd start --instance 'default' --server 51825 --bridge 51826
+Restart=on-failure
+RestartSec=3
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
