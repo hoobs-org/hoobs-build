@@ -33,6 +33,10 @@ motd()
     echo "  | |  | | |__| | |__| | |_) |____) | "
     echo "  |_|  |_|\____/ \____/|____/|_____/  "
     echo "                                      "
+    echo ""
+    echo "HOOBS and the HOOBS logo are registered trademarks of HOOBS Inc."
+    echo "Copyright (C) 2020 HOOBS Inc. All rights reserved."
+    echo ""
 }
 
 usage()
