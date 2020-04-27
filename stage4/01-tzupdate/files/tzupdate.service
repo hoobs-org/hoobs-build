@@ -1,6 +1,6 @@
 [Unit]
 Description=Timezone Update Service
-After=nginx.service
+After=network-online.target
 
 [Service]
 Type=oneshot

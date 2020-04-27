@@ -28,6 +28,8 @@ npm install -g --unsafe-perm /hoobs-core.tgz
 
 rm -rf /hoobs-core.tgz
 
+setcap CAP_NET_BIND_SERVICE=+eip /usr/local/bin/hoobs
+
 systemctl daemon-reload
 systemctl enable hoobs
 EOF

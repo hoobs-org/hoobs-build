@@ -1,7 +1,7 @@
 [Unit]
 Description=WiFi Captive Portal
 After=NetworkManager.service
-Before=nginx.service hoobs.service
+Before=hoobs.service
 
 [Service]
 Type=oneshot
