@@ -28,7 +28,7 @@ npm install -g --unsafe-perm /hoobs-core.tgz
 
 rm -rf /hoobs-core.tgz
 
-setcap cap_net_bind_service=+ep `readlink -f \`which node\``
+setcap CAP_NET_BIND_SERVICE=+eip /usr/local/bin/node
 
 systemctl daemon-reload
 systemctl enable hoobs
