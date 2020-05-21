@@ -110,6 +110,7 @@ case $MODE in
 
                     docker volume create ARM6
                     docker volume create ARM7
+                    docker volume create ARM8
                     docker volume create hoobs-work
 
                     line
@@ -125,6 +126,7 @@ case $MODE in
 
                     docker volume rm ARM6
                     docker volume rm ARM7
+                    docker volume rm ARM8
                     docker volume rm hoobs-work
 
                     line
@@ -187,6 +189,14 @@ case $MODE in
 
                 docker rm -v hoobs-build > /dev/null 2>&1
                 ./build-docker.sh -c ARM7
+
+                line
+                echo ""
+                echo "Building ARM8"
+                line
+
+                docker rm -v hoobs-build > /dev/null 2>&1
+                ./build-docker.sh -c ARM8
 
                 line
                 echo ""
