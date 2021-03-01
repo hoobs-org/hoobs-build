@@ -19,13 +19,15 @@
 ##################################################################################################
 
 install -m 644 files/sudoers "${ROOTFS_DIR}/etc/"
-install -m 644 files/hoobs-server.tgz "${ROOTFS_DIR}/"
+install -m 644 files/hoobs.service "${ROOTFS_DIR}/etc/systemd/system/"
+install -m 644 files/hoobs-core.tgz "${ROOTFS_DIR}/"
 
 on_chroot << EOF
-npm_config_user=root npm install -g --unsafe-perm /hoobs-server.tgz
-
+npm uninstall -g @hoobs/hoobs
+npm install -g --unsafe-perm /hoobs-core.tgz
 rm -rf /hoobs-core.tgz
-
-hoobs enable cockpit
-hoobs instance create -i Default -s 51825 -b 51826
+setcap CAP_NET_BIND_SERVICE=+eip /usr/local/lib/node_modules/@hoobs/hoobs/bin/hoobs
+setcap CAP_NET_BIND_SERVICE=+eip /usr/local/bin/node
+systemctl daemon-reload
+systemctl enable hoobs
 EOF
